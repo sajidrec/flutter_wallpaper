@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/utils/urls.dart';
-import 'package:flutter_wallpaper_app/presentation/secrate/api_key.dart';
+import 'package:flutter_wallpaper_app/secret/api_key.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
