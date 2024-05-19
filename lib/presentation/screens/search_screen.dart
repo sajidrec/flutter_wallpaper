@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/search_result_screen.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
@@ -24,6 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildSearchFiled() {
+    final focusNode = FocusNode();
     return Form(
       key: _formKey,
       child: Padding(
@@ -32,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              focusNode: focusNode,
               controller: _searchTEController,
               keyboardType: TextInputType.text,
               cursorColor: AppColor.primaryYellowColor,
@@ -48,6 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () {
+                    focusNode.unfocus();
                     Get.to(
                       SearchResultScreen(
                         searchKeyword:

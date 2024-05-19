@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
+import 'package:flutter_wallpaper_app/presentation/controllers/search_result_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/create_appbar.dart';
@@ -19,44 +19,17 @@ class SearchResultScreen extends StatefulWidget {
 }
 
 class _SearchResultScreenState extends State<SearchResultScreen> {
-  final List<WallpaperElementModel> _wallpaperItemList = [
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-      isFavourite: true,
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-  ];
+  final _searchResultScreenController =
+      Get.find<SearchResultScreenController>();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchResultScreenController.getWallpaperList(
+      searchKeyword: widget.searchKeyword,
+    );
+    _searchResultScreenController.clearWallpaperList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,32 +88,37 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   Widget _buildScrollableImageSection() {
     return Positioned(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 3 / 5,
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 12,
-        ),
-        shrinkWrap: true,
-        itemCount: _wallpaperItemList.length,
-        itemBuilder: (context, index) => _buildWallpaperImageElement(
-          onTapFunction: () {
-            Get.to(
-              FullImageViewWithWallpaperSetOption(
-                imageUrl: _wallpaperItemList[index].imageUrl,
-              ),
-            );
-          },
-          imageUrl: _wallpaperItemList[index].imageUrl,
-          isFavourite: _wallpaperItemList[index].isFavourite,
-        ),
-      ),
+      child: GetBuilder<SearchResultScreenController>(builder: (_) {
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 3 / 5,
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 12,
+          ),
+          shrinkWrap: true,
+          itemCount: _searchResultScreenController.wallpaperItemList.length,
+          itemBuilder: (context, index) => _buildWallpaperImageElement(
+            onTapFunction: () {
+              Get.to(
+                FullImageViewWithWallpaperSetOption(
+                  imageUrl: _searchResultScreenController
+                      .wallpaperItemList[index].bigImageUrl,
+                ),
+              );
+            },
+            smallImageUrl: _searchResultScreenController
+                .wallpaperItemList[index].smallImageUrl,
+            isFavourite: _searchResultScreenController
+                .wallpaperItemList[index].isFavourite,
+          ),
+        );
+      }),
     );
   }
 
   Widget _buildWallpaperImageElement({
-    required String imageUrl,
+    required String smallImageUrl,
     required VoidCallback onTapFunction,
     required bool isFavourite,
   }) {
@@ -165,7 +143,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   }
                   return child;
                 },
-                imageUrl,
+                smallImageUrl,
                 fit: BoxFit.cover,
               ),
             ),

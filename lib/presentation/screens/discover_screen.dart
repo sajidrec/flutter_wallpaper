@@ -16,40 +16,11 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final List<WallpaperElementModel> _wallpaperItemList = [
     WallpaperElementModel(
-      imageUrl:
+      smallImageUrl:
           "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
       imageId: "123",
       isFavourite: true,
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-    ),
-    WallpaperElementModel(
-      imageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
+      bigImageUrl: '',
     ),
   ];
 
@@ -121,11 +92,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           onTapFunction: () {
             Get.to(
               FullImageViewWithWallpaperSetOption(
-                imageUrl: _wallpaperItemList[index].imageUrl,
+                imageUrl: _wallpaperItemList[index].smallImageUrl,
               ),
             );
           },
-          imageUrl: _wallpaperItemList[index].imageUrl,
+          imageUrl: _wallpaperItemList[index].smallImageUrl,
           isFavourite: _wallpaperItemList[index].isFavourite,
         ),
       ),

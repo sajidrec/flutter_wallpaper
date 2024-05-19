@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/data/models/wallpaper_fav_element_model.dart';
@@ -115,7 +114,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         backgroundColor: WidgetStateProperty.all(Colors.red),
                       ),
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         "Yes",
                         style: TextStyle(
                           color: Colors.white,
@@ -123,7 +122,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     ElevatedButton(
@@ -133,7 +132,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       onPressed: () {
                         Get.back();
                       },
-                      child: Text(
+                      child: const Text(
                         "NO",
                         style: TextStyle(
                           color: Colors.white,
@@ -144,7 +143,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   ],
                 );
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete_outline_outlined,
                 color: Colors.red,
                 size: 45,
