@@ -14,12 +14,18 @@ class SearchResultScreenController extends GetxController {
 
   void clearWallpaperList() {
     _wallpaperItemList.clear();
+    _searchPageNumber = 1;
   }
 
-  final int _searchPageNumber = 1;
+  int _searchPageNumber = 1;
+
+  int get searchPageNumber => _searchPageNumber;
+
+  void increaseSearchPageNumber() {
+    _searchPageNumber++;
+  }
 
   Future<void> fetchWallpaperList({required searchKeyword}) async {
-
     final http.Response response = await NetworkCaller.getRequest(
       url: Urls.getSearchUrl(
         searchKeyword: searchKeyword,

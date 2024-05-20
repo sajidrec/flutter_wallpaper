@@ -29,6 +29,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       searchKeyword: widget.searchKeyword,
     );
     _searchResultScreenController.clearWallpaperList();
+
+    log("page number is ${_searchResultScreenController.searchPageNumber}");
   }
 
   @override
@@ -61,28 +63,33 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       bottom: 8,
       left: 12,
       right: 12,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          log("load more button pressed");
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade700.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          height: 50,
-          child: const Center(
-            child: Text(
-              "Load more...",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+      child: GetBuilder<SearchResultScreenController>(builder: (_) {
+        return InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            _searchResultScreenController.increaseSearchPageNumber();
+            _searchResultScreenController.fetchWallpaperList(
+                searchKeyword: widget.searchKeyword);
+            log("page number is ${_searchResultScreenController.searchPageNumber}");
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade700.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            height: 50,
+            child: const Center(
+              child: Text(
+                "Load more...",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
