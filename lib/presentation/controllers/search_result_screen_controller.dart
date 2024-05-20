@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
-import 'package:flutter_wallpaper_app/data/utils/urls.dart';
-import 'package:flutter_wallpaper_app/secret/api_key.dart';
+import 'package:flutter_wallpaper_app/data/services/network_caller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import '../../data/utils/urls.dart';
 
 class SearchResultScreenController extends GetxController {
   final List<WallpaperElementModel> _wallpaperItemList = [];
@@ -17,15 +18,13 @@ class SearchResultScreenController extends GetxController {
 
   final int _searchPageNumber = 1;
 
-  Future<void> getWallpaperList({required searchKeyword}) async {
-    final http.Response response = await http.get(
-      Uri.parse(
-        Urls.getSearchUrl(
-          searchKeyword: searchKeyword,
-          pageNumber: _searchPageNumber,
-        ),
+  Future<void> fetchWallpaperList({required searchKeyword}) async {
+
+    final http.Response response = await NetworkCaller.getRequest(
+      url: Urls.getSearchUrl(
+        searchKeyword: searchKeyword,
+        pageNumber: _searchPageNumber,
       ),
-      headers: {"Authorization": apiKey},
     );
 
     for (int i = 0; i < jsonDecode(response.body)["photos"].length; i++) {

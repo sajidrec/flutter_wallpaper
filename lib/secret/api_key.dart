@@ -1,2 +1,1 @@
-const String apiKey =
-    "write your api key here";
+const String apiKey = "write your api key here";

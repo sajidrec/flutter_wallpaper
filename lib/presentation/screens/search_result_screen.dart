@@ -25,7 +25,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   @override
   void initState() {
     super.initState();
-    _searchResultScreenController.getWallpaperList(
+    _searchResultScreenController.fetchWallpaperList(
       searchKeyword: widget.searchKeyword,
     );
     _searchResultScreenController.clearWallpaperList();
