@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/discover_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
@@ -88,7 +87,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Get.to(
                 FullImageViewWithWallpaperSetOption(
                   imageUrl: _discoverScreenController
-                      .wallpaperItemList[index].smallImageUrl,
+                      .wallpaperItemList[index].bigImageUrl,
                 ),
               );
             },
