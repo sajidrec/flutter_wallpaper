@@ -7,4 +7,10 @@ class Urls {
   }) {
     return "$_baseUrl/search/?query=$searchKeyword&page=$pageNumber";
   }
+
+  static String getRandomImageListUrl({
+    required int pageNumber,
+  }) {
+    return "$_baseUrl/curated?page=$pageNumber";
+  }
 }

@@ -29,8 +29,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       searchKeyword: widget.searchKeyword,
     );
     _searchResultScreenController.clearWallpaperList();
-
-    log("page number is ${_searchResultScreenController.searchPageNumber}");
   }
 
   @override
@@ -70,7 +68,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             _searchResultScreenController.increaseSearchPageNumber();
             _searchResultScreenController.fetchWallpaperList(
                 searchKeyword: widget.searchKeyword);
-            log("page number is ${_searchResultScreenController.searchPageNumber}");
           },
           child: Container(
             decoration: BoxDecoration(

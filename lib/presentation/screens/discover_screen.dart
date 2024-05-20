@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
+import 'package:flutter_wallpaper_app/presentation/controllers/discover_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:get/get.dart';
@@ -14,15 +15,7 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  final List<WallpaperElementModel> _wallpaperItemList = [
-    WallpaperElementModel(
-      smallImageUrl:
-          "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
-      imageId: "123",
-      isFavourite: true,
-      bigImageUrl: '',
-    ),
-  ];
+  final _discoverScreenController = Get.find<DiscoverScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,58 +41,66 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   Widget _buildLoadMoreButton() {
-    return Positioned(
-      bottom: 8,
-      left: 12,
-      right: 12,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          log("load more button pressed");
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade700.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          height: 50,
-          child: const Center(
-            child: Text(
-              "Load more...",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+    return GetBuilder<DiscoverScreenController>(builder: (_) {
+      return Positioned(
+        bottom: 8,
+        left: 12,
+        right: 12,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            _discoverScreenController.increaseSearchPageNumber();
+            _discoverScreenController.fetchWallpaperList();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade700.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            height: 50,
+            child: const Center(
+              child: Text(
+                "Load more...",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildScrollableImageSection() {
     return Positioned(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 3 / 5,
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 12,
-        ),
-        shrinkWrap: true,
-        itemCount: _wallpaperItemList.length,
-        itemBuilder: (context, index) => _buildWallpaperImageElement(
-          onTapFunction: () {
-            Get.to(
-              FullImageViewWithWallpaperSetOption(
-                imageUrl: _wallpaperItemList[index].smallImageUrl,
-              ),
-            );
-          },
-          imageUrl: _wallpaperItemList[index].smallImageUrl,
-          isFavourite: _wallpaperItemList[index].isFavourite,
-        ),
-      ),
+      child: GetBuilder<DiscoverScreenController>(builder: (_) {
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 3 / 5,
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 12,
+          ),
+          shrinkWrap: true,
+          itemCount: _discoverScreenController.wallpaperItemList.length,
+          itemBuilder: (context, index) => _buildWallpaperImageElement(
+            onTapFunction: () {
+              Get.to(
+                FullImageViewWithWallpaperSetOption(
+                  imageUrl: _discoverScreenController
+                      .wallpaperItemList[index].smallImageUrl,
+                ),
+              );
+            },
+            imageUrl: _discoverScreenController
+                .wallpaperItemList[index].smallImageUrl,
+            isFavourite:
+                _discoverScreenController.wallpaperItemList[index].isFavourite,
+          ),
+        );
+      }),
     );
   }
 
