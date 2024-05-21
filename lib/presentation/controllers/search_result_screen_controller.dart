@@ -12,13 +12,24 @@ class SearchResultScreenController extends GetxController {
 
   List<WallpaperElementModel> get wallpaperItemList => _wallpaperItemList;
 
+  WallpaperElementModel getWallpaperItem({required int index}) {
+    return _wallpaperItemList[index];
+  }
+
+  void setFavouriteStatus({
+    required int index,
+    required bool isFavourite,
+  }) {
+    _wallpaperItemList[index].isFavourite = isFavourite;
+    update();
+  }
+
   void clearWallpaperList() {
     _wallpaperItemList.clear();
     _searchPageNumber = 1;
   }
 
   int _searchPageNumber = 1;
-
 
   void increaseSearchPageNumber() {
     _searchPageNumber++;

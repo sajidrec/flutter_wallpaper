@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
               textInputAction: TextInputAction.search,
               onFieldSubmitted: (searchKeyword) {
                 Get.to(
-                  SearchResultScreen(searchKeyword: searchKeyword),
+                  () => SearchResultScreen(searchKeyword: searchKeyword),
                 );
               },
               maxLength: 35,
@@ -50,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () {
                     focusNode.unfocus();
                     Get.to(
-                      SearchResultScreen(
+                      () => SearchResultScreen(
                         searchKeyword:
                             _searchTEController.text.toString().trim(),
                       ),

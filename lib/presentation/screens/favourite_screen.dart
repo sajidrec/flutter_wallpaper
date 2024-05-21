@@ -58,6 +58,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       itemBuilder: (context, index) => _buildWallpaperImageElement(
         onTapFunction: () {
           Get.to(
+            ()=>
             FullImageViewWithWallpaperSetOption(
               imageUrl: _wallpaperItemList[index].imageUrl,
             ),

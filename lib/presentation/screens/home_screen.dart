@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) => _buildCategoryElement(
         onTapFunction: () {
           Get.to(
+            ()=>
             SearchResultScreen(
               searchKeyword: _categoryItemList[index].categoryName,
             ),

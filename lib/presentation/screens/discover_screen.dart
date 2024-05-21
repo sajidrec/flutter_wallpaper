@@ -91,7 +91,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             itemBuilder: (context, index) => _buildWallpaperImageElement(
               onTapFunction: () {
                 Get.to(
-                  FullImageViewWithWallpaperSetOption(
+                  () => FullImageViewWithWallpaperSetOption(
                     imageUrl: _discoverScreenController
                         .wallpaperItemList[index].bigImageUrl,
                   ),
@@ -121,7 +121,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         fit: StackFit.expand,
         children: [
           _buildFetchImage(imageUrl),
-          _buildFavouriteIconButton(isFavourite, index),
+          _buildFavouriteIconButton(
+            isFavourite: isFavourite,
+            index: index,
+          ),
         ],
       ),
     );
@@ -151,7 +154,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     );
   }
 
-  Widget _buildFavouriteIconButton(bool isFavourite, int index) {
+  Widget _buildFavouriteIconButton(
+      {required bool isFavourite, required int index}) {
     return Positioned(
       top: 5,
       right: 5,
