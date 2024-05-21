@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
+import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/discover_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -152,7 +157,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       right: 5,
       child: GetBuilder<DiscoverScreenController>(builder: (_) {
         return IconButton(
-          onPressed: () {
+          onPressed: () async {
             if (isFavourite) {
               Get.defaultDialog(
                 middleText: "",
@@ -164,11 +169,40 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       _discoverScreenController.setFavouriteStatus(
                         index: index,
                         isFavourite: false,
                       );
+
+                      SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+
+                      List<String> favWallpaperList =
+                          sharedPreferences.getStringList(
+                                SharedPrefKeys.favouriteImageKey,
+                              ) ??
+                              [];
+
+                      WallpaperElementModel wallpaperElement =
+                          _discoverScreenController.getWallpaperItem(
+                              index: index);
+
+                      String targetImageId = wallpaperElement.imageId;
+
+                      for (int i = 0; i < favWallpaperList.length; i++) {
+                        if (jsonDecode(favWallpaperList[i])["imageId"] ==
+                            targetImageId) {
+                          favWallpaperList.removeAt(i);
+                          break;
+                        }
+                      }
+
+                      await sharedPreferences.setStringList(
+                        SharedPrefKeys.favouriteImageKey,
+                        favWallpaperList,
+                      );
+
                       Get.back();
                     },
                     child: const Text(
@@ -203,6 +237,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               _discoverScreenController.setFavouriteStatus(
                 index: index,
                 isFavourite: true,
+              );
+
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+
+              List<String> favWallpaperList = sharedPreferences
+                      .getStringList(SharedPrefKeys.favouriteImageKey) ??
+                  [];
+
+              WallpaperElementModel wallpaperElement =
+                  _discoverScreenController.getWallpaperItem(index: index);
+
+              favWallpaperList.add(
+                jsonEncode(
+                  wallpaperElement.toJson(),
+                ),
+              );
+
+              await sharedPreferences.setStringList(
+                SharedPrefKeys.favouriteImageKey,
+                favWallpaperList,
+              );
+
+              print(
+                sharedPreferences.getStringList(
+                  SharedPrefKeys.favouriteImageKey,
+                ),
               );
             }
           },

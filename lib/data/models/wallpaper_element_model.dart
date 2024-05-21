@@ -11,4 +11,13 @@ class WallpaperElementModel {
     required this.imageId,
     this.isFavourite = false,
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isFavourite'] = isFavourite;
+    data['smallImageUrl'] = smallImageUrl;
+    data['bigImageUrl'] = bigImageUrl;
+    data['imageId'] = imageId;
+    return data;
+  }
 }

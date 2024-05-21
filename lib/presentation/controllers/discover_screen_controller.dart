@@ -10,6 +10,10 @@ class DiscoverScreenController extends GetxController {
 
   List<WallpaperElementModel> get wallpaperItemList => _wallpaperItemList;
 
+  WallpaperElementModel getWallpaperItem({required int index}) {
+    return _wallpaperItemList[index];
+  }
+
   void setFavouriteStatus({
     required int index,
     required bool isFavourite,
