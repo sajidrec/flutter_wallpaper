@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 import '../../data/utils/urls.dart';
 
 class SearchResultScreenController extends GetxController {
-  final List<WallpaperElementModel> _wallpaperItemList = [];
+  final List<WallpaperElement> _wallpaperItemList = [];
 
-  List<WallpaperElementModel> get wallpaperItemList => _wallpaperItemList;
+  List<WallpaperElement> get wallpaperItemList => _wallpaperItemList;
 
-  WallpaperElementModel getWallpaperItem({required int index}) {
+  WallpaperElement getWallpaperItem({required int index}) {
     return _wallpaperItemList[index];
   }
 
@@ -45,7 +45,7 @@ class SearchResultScreenController extends GetxController {
 
     for (int i = 0; i < jsonDecode(response.body)["photos"].length; i++) {
       _wallpaperItemList.add(
-        WallpaperElementModel(
+        WallpaperElement(
           smallImageUrl: jsonDecode(response.body)["photos"][i]["src"]["medium"]
               .toString(),
           imageId: jsonDecode(response.body)["photos"][i]["id"].toString(),

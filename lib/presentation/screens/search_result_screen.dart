@@ -183,7 +183,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                               ) ??
                               [];
 
-                      WallpaperElementModel wallpaperElement =
+                      WallpaperElement wallpaperElement =
                           _searchResultScreenController.getWallpaperItem(
                               index: index);
 
@@ -245,7 +245,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                       .getStringList(SharedPrefKeys.favouriteImageKey) ??
                   [];
 
-              WallpaperElementModel wallpaperElement =
+              WallpaperElement wallpaperElement =
                   _searchResultScreenController.getWallpaperItem(index: index);
 
               favWallpaperList.add(

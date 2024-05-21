@@ -1,16 +1,23 @@
-class WallpaperElementModel {
-  bool isFavourite;
+class WallpaperElement {
+  late bool isFavourite;
 
-  final String smallImageUrl;
-  final String bigImageUrl;
-  final String imageId;
+  late final String smallImageUrl;
+  late final String bigImageUrl;
+  late final String imageId;
 
-  WallpaperElementModel({
+  WallpaperElement({
     required this.smallImageUrl,
     required this.bigImageUrl,
     required this.imageId,
     this.isFavourite = false,
   });
+
+  WallpaperElement.fromJson(Map<String, dynamic> json) {
+    isFavourite = json['isFavourite'];
+    smallImageUrl = json['smallImageUrl'];
+    bigImageUrl = json['bigImageUrl'];
+    imageId = json['imageId'];
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

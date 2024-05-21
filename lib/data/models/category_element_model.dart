@@ -1,7 +1,7 @@
-class CategoryElementModel {
+class CategoryElement {
   final String categoryName, imagePath;
 
-  CategoryElementModel({
+  CategoryElement({
     required this.categoryName,
     required this.imagePath,
   });

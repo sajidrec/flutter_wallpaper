@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_wallpaper_app/data/models/wallpaper_fav_element_model.dart';
+import 'package:flutter_wallpaper_app/presentation/controllers/favourite_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:get/get.dart';
@@ -13,23 +12,14 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  final List<WallpaperFavElementModel> _wallpaperItemList = [
-    WallpaperFavElementModel(
-      imageId: "3258",
-      imageUrl:
-          "https://media.licdn.com/dms/image/D5603AQEG3ImJG2qDxg/profile-displayphoto-shrink_200_200/0/1699261220322?e=2147483647&v=beta&t=fcAwTYrs3rLJ4evKKW1Pr9qCzJvyvqzTtwYHL1WBA6I",
-    ),
-    WallpaperFavElementModel(
-      imageId: "3288",
-      imageUrl:
-          "https://media.licdn.com/dms/image/D5603AQEG3ImJG2qDxg/profile-displayphoto-shrink_200_200/0/1699261220322?e=2147483647&v=beta&t=fcAwTYrs3rLJ4evKKW1Pr9qCzJvyvqzTtwYHL1WBA6I",
-    ),
-    WallpaperFavElementModel(
-      imageId: "3277",
-      imageUrl:
-          "https://media.licdn.com/dms/image/D5603AQEG3ImJG2qDxg/profile-displayphoto-shrink_200_200/0/1699261220322?e=2147483647&v=beta&t=fcAwTYrs3rLJ4evKKW1Pr9qCzJvyvqzTtwYHL1WBA6I",
-    ),
-  ];
+  final FavouriteScreenController _favouriteScreenController =
+      Get.find<FavouriteScreenController>();
+
+  @override
+  void initState() {
+    super.initState();
+    _favouriteScreenController.fetchWallpaperItemList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,27 +36,30 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   }
 
   Widget _buildScrollableImageSection() {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 3 / 5,
-        crossAxisCount: 2,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 12,
-      ),
-      shrinkWrap: true,
-      itemCount: _wallpaperItemList.length,
-      itemBuilder: (context, index) => _buildWallpaperImageElement(
-        onTapFunction: () {
-          Get.to(
-            ()=>
-            FullImageViewWithWallpaperSetOption(
-              imageUrl: _wallpaperItemList[index].imageUrl,
-            ),
-          );
-        },
-        imageUrl: _wallpaperItemList[index].imageUrl,
-      ),
-    );
+    return GetBuilder<FavouriteScreenController>(builder: (_) {
+      return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 3 / 5,
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 12,
+        ),
+        shrinkWrap: true,
+        itemCount: _favouriteScreenController.wallpaperItemList.length,
+        itemBuilder: (context, index) => _buildWallpaperImageElement(
+          onTapFunction: () {
+            Get.to(
+              () => FullImageViewWithWallpaperSetOption(
+                imageUrl: _favouriteScreenController
+                    .wallpaperItemList[index].bigImageUrl,
+              ),
+            );
+          },
+          imageUrl:
+              _favouriteScreenController.wallpaperItemList[index].smallImageUrl,
+        ),
+      );
+    });
   }
 
   Widget _buildWallpaperImageElement({

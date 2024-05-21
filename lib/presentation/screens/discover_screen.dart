@@ -188,7 +188,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                               ) ??
                               [];
 
-                      WallpaperElementModel wallpaperElement =
+                      WallpaperElement wallpaperElement =
                           _discoverScreenController.getWallpaperItem(
                               index: index);
 
@@ -250,7 +250,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       .getStringList(SharedPrefKeys.favouriteImageKey) ??
                   [];
 
-              WallpaperElementModel wallpaperElement =
+              WallpaperElement wallpaperElement =
                   _discoverScreenController.getWallpaperItem(index: index);
 
               favWallpaperList.add(

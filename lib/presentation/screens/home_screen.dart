@@ -13,40 +13,40 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<CategoryElementModel> _categoryItemList = [
-    CategoryElementModel(
+  final List<CategoryElement> _categoryItemList = [
+    CategoryElement(
       categoryName: "Plants",
       imagePath: AssetsPath.plantsCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Abstract",
       imagePath: AssetsPath.abstractCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Sci-Fi",
       imagePath: AssetsPath.sciFiCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Animal",
       imagePath: AssetsPath.animalCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "City",
       imagePath: AssetsPath.cityCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Thunder",
       imagePath: AssetsPath.thunderCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Fire",
       imagePath: AssetsPath.fireCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Sea",
       imagePath: AssetsPath.seaCategoryJpg,
     ),
-    CategoryElementModel(
+    CategoryElement(
       categoryName: "Stars",
       imagePath: AssetsPath.starsCategoryJpg,
     ),
