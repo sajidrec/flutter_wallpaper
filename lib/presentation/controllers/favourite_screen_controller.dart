@@ -28,4 +28,29 @@ class FavouriteScreenController extends GetxController {
     }
     update();
   }
+
+  Future<void> deleteWallpaper({
+    required String imageId,
+  }) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    List<String> favWallpaperList = sharedPreferences.getStringList(
+          SharedPrefKeys.favouriteImageKey,
+        ) ??
+        [];
+
+    for (int i = 0; i < favWallpaperList.length; i++) {
+      if (jsonDecode(favWallpaperList[i])["imageId"] == imageId) {
+        favWallpaperList.removeAt(i);
+        break;
+      }
+    }
+
+    await sharedPreferences.setStringList(
+      SharedPrefKeys.favouriteImageKey,
+      favWallpaperList,
+    );
+
+    fetchWallpaperItemList();
+  }
 }

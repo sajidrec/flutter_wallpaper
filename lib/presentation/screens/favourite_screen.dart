@@ -57,6 +57,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           },
           imageUrl:
               _favouriteScreenController.wallpaperItemList[index].smallImageUrl,
+          imageId: _favouriteScreenController.wallpaperItemList[index].imageId,
         ),
       );
     });
@@ -65,6 +66,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget _buildWallpaperImageElement({
     required String imageUrl,
     required VoidCallback onTapFunction,
+    required String imageId,
   }) {
     return GestureDetector(
       onTap: onTapFunction,
@@ -107,7 +109,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(Colors.red),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _favouriteScreenController.deleteWallpaper(
+                          imageId: imageId,
+                        );
+                        Get.back();
+                      },
                       child: const Text(
                         "Yes",
                         style: TextStyle(
