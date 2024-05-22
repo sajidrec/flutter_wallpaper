@@ -39,12 +39,13 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
                       backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
                     onPressed: () async {
-                      Fluttertoast.showToast(
+                      await Fluttertoast.showToast(
                         msg: "Wait while setting the wallpaper for you.",
                         textColor: Colors.white,
                         backgroundColor: Colors.black,
                         fontSize: 20,
                       );
+
                       Get.back();
 
                       final file =
@@ -55,7 +56,7 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
                         WallpaperLocation.homeScreen,
                       );
 
-                      Fluttertoast.showToast(
+                      await Fluttertoast.showToast(
                         msg: "Wallpaper set was successful.",
                         textColor: Colors.white,
                         backgroundColor: Colors.green,
