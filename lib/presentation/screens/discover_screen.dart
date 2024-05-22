@@ -13,11 +13,14 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final _discoverScreenController = Get.find<DiscoverScreenController>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _discoverScreenController.fetchWallpaperList();
+    _discoverScreenController.fetchWallpaperList(
+      scrollController: _scrollController,
+    );
   }
 
   @override
@@ -53,7 +56,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             _discoverScreenController.increaseSearchPageNumber();
-            _discoverScreenController.fetchWallpaperList();
+            _discoverScreenController.fetchWallpaperList(
+              scrollController: _scrollController,
+            );
           },
           child: (_discoverScreenController.getWallpaperItemList.isNotEmpty)
               ? Container(
@@ -83,6 +88,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       child: GetBuilder<DiscoverScreenController>(
         builder: (_) {
           return GridView.builder(
+            controller: _scrollController,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 3 / 5,
               crossAxisCount: 2,

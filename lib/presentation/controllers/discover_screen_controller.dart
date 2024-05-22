@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/services/network_caller.dart';
 import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
@@ -30,7 +31,9 @@ class DiscoverScreenController extends GetxController {
     _searchPageNumber++;
   }
 
-  Future<void> fetchWallpaperList() async {
+  Future<void> fetchWallpaperList({
+    required ScrollController scrollController,
+  }) async {
     final http.Response response = await NetworkCaller.getRequest(
       url: Urls.getRandomImageListUrl(
         pageNumber: _searchPageNumber,
@@ -65,6 +68,14 @@ class DiscoverScreenController extends GetxController {
     }
 
     listOfFavImageId.clear();
+
+    if (getWallpaperItemList.isNotEmpty) {
+      await scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOutCirc,
+      );
+    }
 
     update();
   }

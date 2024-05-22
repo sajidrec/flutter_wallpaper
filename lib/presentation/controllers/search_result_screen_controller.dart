@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/services/network_caller.dart';
 import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
@@ -37,7 +38,10 @@ class SearchResultScreenController extends GetxController {
     _searchPageNumber++;
   }
 
-  Future<void> fetchWallpaperList({required searchKeyword}) async {
+  Future<void> fetchWallpaperList({
+    required searchKeyword,
+    required ScrollController scrollController,
+  }) async {
     final http.Response response = await NetworkCaller.getRequest(
       url: Urls.getSearchUrl(
         searchKeyword: searchKeyword,
@@ -73,6 +77,14 @@ class SearchResultScreenController extends GetxController {
     }
 
     listOfFavImageId.clear();
+
+    if (getWallpaperItemList.isNotEmpty) {
+      await scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOutCirc,
+      );
+    }
 
     update();
   }

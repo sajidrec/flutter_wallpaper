@@ -20,12 +20,14 @@ class SearchResultScreen extends StatefulWidget {
 class _SearchResultScreenState extends State<SearchResultScreen> {
   final _searchResultScreenController =
       Get.find<SearchResultScreenController>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _searchResultScreenController.fetchWallpaperList(
       searchKeyword: widget.searchKeyword,
+      scrollController: _scrollController,
     );
     _searchResultScreenController.clearWallpaperList();
   }
@@ -67,6 +69,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             _searchResultScreenController.increaseSearchPageNumber();
             _searchResultScreenController.fetchWallpaperList(
               searchKeyword: widget.searchKeyword,
+              scrollController: _scrollController,
             );
           },
           child: (_searchResultScreenController.getWallpaperItemList.isNotEmpty)
@@ -96,6 +99,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
     return Positioned(
       child: GetBuilder<SearchResultScreenController>(builder: (_) {
         return GridView.builder(
+          controller: _scrollController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 3 / 5,
             crossAxisCount: 2,
