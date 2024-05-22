@@ -80,4 +80,22 @@ class SearchResultScreenController extends GetxController {
       favWallpaperList,
     );
   }
+
+  Future<void> addToFavouriteList({required int index}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    List<String> favWallpaperList =
+        sharedPreferences.getStringList(SharedPrefKeys.favouriteImageKey) ?? [];
+
+    favWallpaperList.add(
+      jsonEncode(
+        _wallpaperItemList[index].toJson(),
+      ),
+    );
+
+    await sharedPreferences.setStringList(
+      SharedPrefKeys.favouriteImageKey,
+      favWallpaperList,
+    );
+  }
 }

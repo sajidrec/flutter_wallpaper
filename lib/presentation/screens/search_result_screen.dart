@@ -1,14 +1,10 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
-import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/search_result_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/create_appbar.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchResultScreen extends StatefulWidget {
   final String searchKeyword;
@@ -211,27 +207,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                 index: index,
                 isFavourite: true,
               );
-
-              SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-
-              List<String> favWallpaperList = sharedPreferences
-                      .getStringList(SharedPrefKeys.favouriteImageKey) ??
-                  [];
-
-              WallpaperElement wallpaperElement =
-                  _searchResultScreenController.getWallpaperItem(index: index);
-
-              favWallpaperList.add(
-                jsonEncode(
-                  wallpaperElement.toJson(),
-                ),
-              );
-
-              await sharedPreferences.setStringList(
-                SharedPrefKeys.favouriteImageKey,
-                favWallpaperList,
-              );
+              _searchResultScreenController.addToFavouriteList(index: index);
             }
           },
           icon: Icon(
