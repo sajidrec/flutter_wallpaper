@@ -9,7 +9,7 @@ class WallpaperElement {
     required this.smallImageUrl,
     required this.bigImageUrl,
     required this.imageId,
-    this.isFavourite = false,
+    required this.isFavourite,
   });
 
   WallpaperElement.fromJson(Map<String, dynamic> json) {

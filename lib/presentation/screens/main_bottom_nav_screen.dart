@@ -15,7 +15,6 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<DiscoverScreenController>().fetchWallpaperList();
   }
 
   @override

@@ -15,6 +15,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final _discoverScreenController = Get.find<DiscoverScreenController>();
 
   @override
+  void initState() {
+    super.initState();
+    _discoverScreenController.fetchWallpaperList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -171,7 +177,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     onPressed: () async {
                       _discoverScreenController.setFavouriteStatus(
                         index: index,
-                        isFavourite: false,
+                        isFavourite: _discoverScreenController
+                            .getWallpaperItem(index: index)
+                            .isFavourite,
                       );
 
                       _discoverScreenController.deleteFromFavourite(

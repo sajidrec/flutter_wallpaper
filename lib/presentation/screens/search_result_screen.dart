@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/search_result_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
@@ -67,7 +66,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           onTap: () {
             _searchResultScreenController.increaseSearchPageNumber();
             _searchResultScreenController.fetchWallpaperList(
-                searchKeyword: widget.searchKeyword);
+              searchKeyword: widget.searchKeyword,
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -167,7 +167,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     onPressed: () async {
                       _searchResultScreenController.setFavouriteStatus(
                         index: index,
-                        isFavourite: false,
+                        isFavourite: _searchResultScreenController
+                            .getWallpaperItem(index: index)
+                            .isFavourite,
                       );
                       _searchResultScreenController.deleteFromFavourite(
                           index: index);

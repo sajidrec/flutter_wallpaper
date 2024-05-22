@@ -36,7 +36,22 @@ class DiscoverScreenController extends GetxController {
         pageNumber: _searchPageNumber,
       ),
     );
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final favListSharedPref = sharedPreferences.getStringList(
+      SharedPrefKeys.favouriteImageKey,
+    );
+
+    List<String> listOfFavImageId = [];
+
+    for (int i = 0; i < (favListSharedPref?.length ?? 0); i++) {
+      listOfFavImageId.add(jsonDecode(favListSharedPref![i])["imageId"]);
+    }
+
     for (int i = 0; i < jsonDecode(response.body)["photos"].length; i++) {
+      bool isFavourite = listOfFavImageId.contains(
+        jsonDecode(response.body)["photos"][i]["id"].toString(),
+      );
       _wallpaperItemList.add(
         WallpaperElement(
           smallImageUrl: jsonDecode(response.body)["photos"][i]["src"]["medium"]
@@ -44,9 +59,13 @@ class DiscoverScreenController extends GetxController {
           imageId: jsonDecode(response.body)["photos"][i]["id"].toString(),
           bigImageUrl: jsonDecode(response.body)["photos"][i]["src"]["original"]
               .toString(),
+          isFavourite: isFavourite,
         ),
       );
     }
+
+    listOfFavImageId.clear();
+
     update();
   }
 
