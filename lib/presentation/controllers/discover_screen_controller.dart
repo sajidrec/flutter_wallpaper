@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DiscoverScreenController extends GetxController {
   final List<WallpaperElement> _wallpaperItemList = [];
 
-  List<WallpaperElement> get wallpaperItemList => _wallpaperItemList;
+  List<WallpaperElement> get getWallpaperItemList => _wallpaperItemList;
 
   WallpaperElement getWallpaperItem({required int index}) {
     return _wallpaperItemList[index];

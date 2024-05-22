@@ -12,7 +12,7 @@ import '../../data/utils/urls.dart';
 class SearchResultScreenController extends GetxController {
   final List<WallpaperElement> _wallpaperItemList = [];
 
-  List<WallpaperElement> get wallpaperItemList => _wallpaperItemList;
+  List<WallpaperElement> get getWallpaperItemList => _wallpaperItemList;
 
   WallpaperElement getWallpaperItem({required int index}) {
     return _wallpaperItemList[index];

@@ -69,22 +69,24 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               searchKeyword: widget.searchKeyword,
             );
           },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade700.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            height: 50,
-            child: const Center(
-              child: Text(
-                "Load more...",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
+          child: (_searchResultScreenController.getWallpaperItemList.isNotEmpty)
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade700.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  height: 50,
+                  child: const Center(
+                    child: Text(
+                      "Load more...",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         );
       }),
     );
@@ -101,20 +103,20 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             mainAxisSpacing: 12,
           ),
           shrinkWrap: true,
-          itemCount: _searchResultScreenController.wallpaperItemList.length,
+          itemCount: _searchResultScreenController.getWallpaperItemList.length,
           itemBuilder: (context, index) => _buildWallpaperImageElement(
             onTapFunction: () {
               Get.to(
                 () => FullImageViewWithWallpaperSetOption(
                   imageUrl: _searchResultScreenController
-                      .wallpaperItemList[index].bigImageUrl,
+                      .getWallpaperItemList[index].bigImageUrl,
                 ),
               );
             },
             smallImageUrl: _searchResultScreenController
-                .wallpaperItemList[index].smallImageUrl,
+                .getWallpaperItemList[index].smallImageUrl,
             isFavourite: _searchResultScreenController
-                .wallpaperItemList[index].isFavourite,
+                .getWallpaperItemList[index].isFavourite,
             index: index,
           ),
         );
