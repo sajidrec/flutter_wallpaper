@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
 import 'package:get/get.dart';

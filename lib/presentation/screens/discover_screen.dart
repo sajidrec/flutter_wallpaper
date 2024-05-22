@@ -179,32 +179,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         isFavourite: false,
                       );
 
-                      SharedPreferences sharedPreferences =
-                          await SharedPreferences.getInstance();
-
-                      List<String> favWallpaperList =
-                          sharedPreferences.getStringList(
-                                SharedPrefKeys.favouriteImageKey,
-                              ) ??
-                              [];
-
-                      WallpaperElement wallpaperElement =
-                          _discoverScreenController.getWallpaperItem(
-                              index: index);
-
-                      String targetImageId = wallpaperElement.imageId;
-
-                      for (int i = 0; i < favWallpaperList.length; i++) {
-                        if (jsonDecode(favWallpaperList[i])["imageId"] ==
-                            targetImageId) {
-                          favWallpaperList.removeAt(i);
-                          break;
-                        }
-                      }
-
-                      await sharedPreferences.setStringList(
-                        SharedPrefKeys.favouriteImageKey,
-                        favWallpaperList,
+                      _discoverScreenController.deleteFromFavourite(
+                        index: index,
                       );
 
                       Get.back();
@@ -262,12 +238,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               await sharedPreferences.setStringList(
                 SharedPrefKeys.favouriteImageKey,
                 favWallpaperList,
-              );
-
-              print(
-                sharedPreferences.getStringList(
-                  SharedPrefKeys.favouriteImageKey,
-                ),
               );
             }
           },

@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/services/network_caller.dart';
+import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/utils/urls.dart';
 
@@ -55,5 +57,27 @@ class SearchResultScreenController extends GetxController {
       );
     }
     update();
+  }
+
+  Future<void> deleteFromFavourite({required int index}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    List<String> favWallpaperList = sharedPreferences.getStringList(
+          SharedPrefKeys.favouriteImageKey,
+        ) ??
+        [];
+
+    for (int i = 0; i < favWallpaperList.length; i++) {
+      if (jsonDecode(favWallpaperList[i])["imageId"] ==
+          _wallpaperItemList[index].imageId) {
+        favWallpaperList.removeAt(i);
+        break;
+      }
+    }
+
+    await sharedPreferences.setStringList(
+      SharedPrefKeys.favouriteImageKey,
+      favWallpaperList,
+    );
   }
 }
