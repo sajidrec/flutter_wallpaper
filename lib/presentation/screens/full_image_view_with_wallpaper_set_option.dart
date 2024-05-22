@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
 import 'package:get/get.dart';
 
 class FullImageViewWithWallpaperSetOption extends StatelessWidget {
@@ -18,11 +19,10 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
             height: 30,
           ),
           Expanded(
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.contain,
-            ),
-          ),
+              child: cachedNetworkImageFetcher(
+            imageUrl: imageUrl,
+            boxFit: BoxFit.contain,
+          )),
           InkWell(
             onTap: () {
               Get.defaultDialog(

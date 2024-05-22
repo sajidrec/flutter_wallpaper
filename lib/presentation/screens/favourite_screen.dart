@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/favourite_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
-import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
+import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
 import 'package:get/get.dart';
 
 class FavouriteScreen extends StatefulWidget {
@@ -80,17 +80,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             bottom: 0,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) {
-                    return CircularProgressIndicator(
-                      color: AppColor.circularProgressColor,
-                    );
-                  }
-                  return child;
-                },
-                imageUrl,
-                fit: BoxFit.cover,
+              child: cachedNetworkImageFetcher(
+                imageUrl: imageUrl,
+                boxFit: BoxFit.cover,
               ),
             ),
           ),

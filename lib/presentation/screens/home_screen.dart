@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/data/models/category_element_model.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/search_result_screen.dart';
@@ -55,10 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(12),
-      child: _buildScrollableImageSection(),
-    ));
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: _buildScrollableImageSection(),
+      ),
+    );
   }
 
   Widget _buildScrollableImageSection() {
@@ -74,8 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) => _buildCategoryElement(
         onTapFunction: () {
           Get.to(
-            ()=>
-            SearchResultScreen(
+            () => SearchResultScreen(
               searchKeyword: _categoryItemList[index].categoryName,
             ),
           );

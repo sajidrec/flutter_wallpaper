@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/search_result_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/screens/full_image_view_with_wallpaper_set_option.dart';
-import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
+import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/create_appbar.dart';
 import 'package:get/get.dart';
 
@@ -228,17 +228,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       bottom: 0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
-        child: Image.network(
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress != null) {
-              return CircularProgressIndicator(
-                color: AppColor.circularProgressColor,
-              );
-            }
-            return child;
-          },
-          smallImageUrl,
-          fit: BoxFit.cover,
+        child: cachedNetworkImageFetcher(
+          imageUrl: smallImageUrl,
+          boxFit: BoxFit.cover,
         ),
       ),
     );
