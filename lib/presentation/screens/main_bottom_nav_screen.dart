@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wallpaper_app/presentation/controllers/discover_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/controllers/main_bottom_nav_screen_controller.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:get/get.dart';

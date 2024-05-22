@@ -167,9 +167,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     onPressed: () async {
                       _searchResultScreenController.setFavouriteStatus(
                         index: index,
-                        isFavourite: _searchResultScreenController
-                            .getWallpaperItem(index: index)
-                            .isFavourite,
+                        isFavourite: false,
                       );
                       _searchResultScreenController.deleteFromFavourite(
                           index: index);

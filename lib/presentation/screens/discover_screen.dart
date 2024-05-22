@@ -177,9 +177,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     onPressed: () async {
                       _discoverScreenController.setFavouriteStatus(
                         index: index,
-                        isFavourite: _discoverScreenController
-                            .getWallpaperItem(index: index)
-                            .isFavourite,
+                        isFavourite: false,
                       );
 
                       _discoverScreenController.deleteFromFavourite(
