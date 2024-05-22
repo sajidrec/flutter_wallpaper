@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
-import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:wallpaper_handler/wallpaper_handler.dart';
 
 class FullImageViewWithWallpaperSetOption extends StatelessWidget {
   final String imageUrl;
@@ -38,13 +39,28 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
                       backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
                     onPressed: () async {
-                      final file =
-                          await DefaultCacheManager().getSingleFile(imageUrl);
-                      await WallpaperManager.setWallpaperFromFile(
-                        file.path,
-                        WallpaperManager.HOME_SCREEN,
+                      Fluttertoast.showToast(
+                        msg: "Wait while setting the wallpaper for you.",
+                        textColor: Colors.white,
+                        backgroundColor: Colors.black,
+                        fontSize: 20,
                       );
                       Get.back();
+
+                      final file =
+                          await DefaultCacheManager().getSingleFile(imageUrl);
+
+                      await WallpaperHandler.instance.setWallpaperFromFile(
+                        file.path,
+                        WallpaperLocation.homeScreen,
+                      );
+
+                      Fluttertoast.showToast(
+                        msg: "Wallpaper set was successful.",
+                        textColor: Colors.white,
+                        backgroundColor: Colors.green,
+                        fontSize: 20,
+                      );
                     },
                     child: const Text(
                       "Yes",
