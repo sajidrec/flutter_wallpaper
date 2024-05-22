@@ -119,4 +119,5 @@ class DiscoverScreenController extends GetxController {
       favWallpaperList,
     );
   }
+
 }

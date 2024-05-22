@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:get/get.dart';
 
 class FullImageViewWithWallpaperSetOption extends StatelessWidget {
@@ -35,7 +37,15 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final file =
+                          await DefaultCacheManager().getSingleFile(imageUrl);
+                      await WallpaperManager.setWallpaperFromFile(
+                        file.path,
+                        WallpaperManager.HOME_SCREEN,
+                      );
+                      Get.back();
+                    },
                     child: const Text(
                       "Yes",
                       style: TextStyle(
