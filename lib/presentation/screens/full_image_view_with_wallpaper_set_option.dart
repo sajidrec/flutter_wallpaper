@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_wallpaper_app/data/services/set_wallpaper_service.dart';
 import 'package:flutter_wallpaper_app/presentation/widgets/cached_network_image_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:wallpaper_handler/wallpaper_handler.dart';
 
 class FullImageViewWithWallpaperSetOption extends StatelessWidget {
   final String imageUrl;
@@ -48,13 +47,7 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
 
                       Get.back();
 
-                      final file =
-                          await DefaultCacheManager().getSingleFile(imageUrl);
-
-                      await WallpaperHandler.instance.setWallpaperFromFile(
-                        file.path,
-                        WallpaperLocation.homeScreen,
-                      );
+                      SetWallpaperService(imageUrl: imageUrl);
 
                       await Fluttertoast.showToast(
                         msg: "Wallpaper set was successful.",
