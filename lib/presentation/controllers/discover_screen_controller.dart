@@ -34,6 +34,9 @@ class DiscoverScreenController extends GetxController {
   Future<void> fetchWallpaperList({
     required ScrollController scrollController,
   }) async {
+
+    _wallpaperItemList.clear();
+
     final http.Response response = await NetworkCaller.getRequest(
       url: Urls.getRandomImageListUrl(
         pageNumber: _searchPageNumber,
