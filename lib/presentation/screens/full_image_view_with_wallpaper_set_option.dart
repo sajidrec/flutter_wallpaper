@@ -47,14 +47,22 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
 
                       Get.back();
 
-                      SetWallpaperService(imageUrl: imageUrl);
-
-                      await Fluttertoast.showToast(
-                        msg: "Wallpaper set was successful.",
-                        textColor: Colors.white,
-                        backgroundColor: Colors.green,
-                        fontSize: 20,
-                      );
+                      if (await SetWallpaperService(imageUrl: imageUrl)
+                          .setWallpaper()) {
+                        await Fluttertoast.showToast(
+                          msg: "Wallpaper set was successful.",
+                          textColor: Colors.white,
+                          backgroundColor: Colors.green,
+                          fontSize: 20,
+                        );
+                      } else {
+                        Fluttertoast.showToast(
+                          msg: "Wallpaper set Failed",
+                          textColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          fontSize: 20,
+                        );
+                      }
                     },
                     child: const Text(
                       "Yes",

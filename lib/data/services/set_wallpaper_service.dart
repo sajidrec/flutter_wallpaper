@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wallpaper_handler/wallpaper_handler.dart';
 
 import '../../secret/api_key.dart';
@@ -11,11 +9,9 @@ class SetWallpaperService {
 
   SetWallpaperService({
     required this.imageUrl,
-  }) {
-    setWallpaper();
-  }
+  });
 
-  Future<void> setWallpaper() async {
+  Future<bool> setWallpaper() async {
     try {
       await DefaultCacheManager().removeFile(
         PersistentKeys.wallpaperKey,
@@ -27,20 +23,14 @@ class SetWallpaperService {
         headers: {"Authorization": apiKey},
       );
 
-      await DefaultCacheManager().removeFile(
-        PersistentKeys.wallpaperKey,
-      );
-
-      await WallpaperHandler.instance.setWallpaperFromFile(
+      bool result = await WallpaperHandler.instance.setWallpaperFromFile(
         file.path,
         WallpaperLocation.homeScreen,
       );
+
+      return result;
     } catch (e) {
-      await Fluttertoast.showToast(
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        msg: "Wallpaper set unsuccessful please try again.",
-      );
+      return false;
     }
   }
 }
