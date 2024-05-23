@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/controller_binder.dart';
-import 'package:flutter_wallpaper_app/presentation/screens/main_bottom_nav_screen.dart';
+import 'package:flutter_wallpaper_app/presentation/screens/splash_screen.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,7 @@ class WallpaperApp extends StatelessWidget {
     return GetMaterialApp(
       theme: _buildThemeData(),
       initialBinding: ControllerBinder(),
-      home: const MainBottomNavScreen(),
+      home: const SplashScreen(),
     );
   }
 

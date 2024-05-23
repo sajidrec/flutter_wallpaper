@@ -6,6 +6,7 @@ import 'package:flutter_wallpaper_app/presentation/screens/main_bottom_nav_scree
 import 'package:flutter_wallpaper_app/presentation/utils/app_color.dart';
 import 'package:flutter_wallpaper_app/presentation/utils/assets_path.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToHomeScreen() async {
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(milliseconds: 3500), () {
       Get.off(() => const MainBottomNavScreen());
     });
   }
@@ -43,26 +44,34 @@ class _SplashScreenState extends State<SplashScreen> {
             fit: BoxFit.cover,
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildLogoText(),
-                const SizedBox(height: 16),
-                const Text(
-                  "Set beautiful wallpaper on your device",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+            child: Shimmer.fromColors(
+              baseColor: Colors.yellowAccent,
+              highlightColor: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildLogoText(),
+                  const SizedBox(height: 16),
+                  _buildSubtitleText(),
+                  const SizedBox(height: 16),
+                  CircularProgressIndicator(
+                    color: AppColor.circularProgressColor,
                   ),
-                ),
-                const SizedBox(height: 16),
-                CircularProgressIndicator(
-                  color: AppColor.circularProgressColor,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Text _buildSubtitleText() {
+    return const Text(
+      "Set beautiful wallpaper on your device",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
       ),
     );
   }
