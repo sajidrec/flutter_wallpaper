@@ -13,7 +13,7 @@ class FavouriteScreenController extends GetxController {
     _wallpaperItemList.clear();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     List<String> favWallpaperList = sharedPreferences.getStringList(
-          SharedPrefKeys.favouriteImageKey,
+          PersistentKeys.favouriteImageKey,
         ) ??
         [];
 
@@ -34,7 +34,7 @@ class FavouriteScreenController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     List<String> favWallpaperList = sharedPreferences.getStringList(
-          SharedPrefKeys.favouriteImageKey,
+          PersistentKeys.favouriteImageKey,
         ) ??
         [];
 
@@ -46,7 +46,7 @@ class FavouriteScreenController extends GetxController {
     }
 
     await sharedPreferences.setStringList(
-      SharedPrefKeys.favouriteImageKey,
+      PersistentKeys.favouriteImageKey,
       favWallpaperList,
     );
 

@@ -45,7 +45,7 @@ class DiscoverScreenController extends GetxController {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final favListSharedPref = sharedPreferences.getStringList(
-      SharedPrefKeys.favouriteImageKey,
+      PersistentKeys.favouriteImageKey,
     );
 
     List<String> listOfFavImageId = [];
@@ -87,7 +87,7 @@ class DiscoverScreenController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     List<String> favWallpaperList = sharedPreferences.getStringList(
-          SharedPrefKeys.favouriteImageKey,
+          PersistentKeys.favouriteImageKey,
         ) ??
         [];
 
@@ -100,7 +100,7 @@ class DiscoverScreenController extends GetxController {
     }
 
     await sharedPreferences.setStringList(
-      SharedPrefKeys.favouriteImageKey,
+      PersistentKeys.favouriteImageKey,
       favWallpaperList,
     );
   }
@@ -109,7 +109,7 @@ class DiscoverScreenController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     List<String> favWallpaperList =
-        sharedPreferences.getStringList(SharedPrefKeys.favouriteImageKey) ?? [];
+        sharedPreferences.getStringList(PersistentKeys.favouriteImageKey) ?? [];
 
     favWallpaperList.add(
       jsonEncode(
@@ -118,7 +118,7 @@ class DiscoverScreenController extends GetxController {
     );
 
     await sharedPreferences.setStringList(
-      SharedPrefKeys.favouriteImageKey,
+      PersistentKeys.favouriteImageKey,
       favWallpaperList,
     );
   }
