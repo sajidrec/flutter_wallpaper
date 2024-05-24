@@ -23,10 +23,13 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
           ),
           _buildSetLockScreenButton(),
           Expanded(
+            child: InteractiveViewer(
               child: cachedNetworkImageFetcher(
-            imageUrl: imageUrl,
-            boxFit: BoxFit.contain,
-          )),
+                imageUrl: imageUrl,
+                boxFit: BoxFit.contain,
+              ),
+            ),
+          ),
           _buildSetWallpaperButton(),
         ],
       ),
