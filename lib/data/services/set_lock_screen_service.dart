@@ -4,30 +4,29 @@ import 'package:wallpaper_handler/wallpaper_handler.dart';
 
 import '../../secret/api_key.dart';
 
-class SetWallpaperService {
+class SetLockScreenService {
   late final String imageUrl;
 
-  SetWallpaperService({
+  SetLockScreenService({
     required this.imageUrl,
   });
 
-  Future<bool> setWallpaper() async {
+  Future<bool> setLockScreen() async {
     try {
       await DefaultCacheManager().removeFile(
-        PersistentKeys.wallpaperKey,
+        PersistentKeys.lockScreenKey,
       );
 
       final file = await DefaultCacheManager().getSingleFile(
         imageUrl,
-        key: PersistentKeys.wallpaperKey,
+        key: PersistentKeys.lockScreenKey,
         headers: {"Authorization": apiKey},
       );
 
       bool result = await WallpaperHandler.instance.setWallpaperFromFile(
         file.path,
-        WallpaperLocation.homeScreen,
+        WallpaperLocation.lockScreen,
       );
-
       return result;
     } catch (e) {
       return false;

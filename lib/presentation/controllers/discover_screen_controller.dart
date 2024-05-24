@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_wallpaper_app/data/models/wallpaper_element_model.dart';
 import 'package:flutter_wallpaper_app/data/services/network_caller.dart';
-import 'package:flutter_wallpaper_app/data/utils/shared_pref_keys.dart';
+import 'package:flutter_wallpaper_app/data/utils/persistent_keys.dart';
 import 'package:flutter_wallpaper_app/data/utils/urls.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
