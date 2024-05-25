@@ -16,22 +16,24 @@ class FullImageViewWithWallpaperSetOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 16,
-          ),
-          _buildSetLockScreenButton(),
-          Expanded(
-            child: InteractiveViewer(
-              child: cachedNetworkImageFetcher(
-                imageUrl: imageUrl,
-                boxFit: BoxFit.contain,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 16,
+            ),
+            _buildSetLockScreenButton(),
+            Expanded(
+              child: InteractiveViewer(
+                child: cachedNetworkImageFetcher(
+                  imageUrl: imageUrl,
+                  boxFit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-          _buildSetWallpaperButton(),
-        ],
+            _buildSetWallpaperButton(),
+          ],
+        ),
       ),
     );
   }

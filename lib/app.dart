@@ -10,6 +10,7 @@ class WallpaperApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: "Wallpaper manager",
       theme: _buildThemeData(),
       initialBinding: ControllerBinder(),
       home: const SplashScreen(),
